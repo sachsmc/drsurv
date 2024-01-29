@@ -1,0 +1,35 @@
+Package: drsurv
+Type: Package
+Title: Doubly Robust Estimation of Survival Differences with Censored Data
+Version: 0.1.0
+Authors@R: 
+    c(person(given = "Michael C",
+             family = "Sachs",
+             role = c("aut", "cre"),
+             email = "sachsmc@gmail.com"),
+      person(given = "Arvid", 
+             family = "Sjölander", role = c("aut")), 
+      person(given = "Erin E", 
+      family = "Gabriel", 
+      role = "aut"))
+URL: https://github.com/sachsmc/drsurv
+BugReports: https://github.com/sachsmc/drsurv/issues
+Date: 2024-01-28             
+Maintainer: Michael C Sachs <sachsmc@gmail.com>
+Description: An implementation of several doubly robust estimators for the 
+    survival difference at a given time point and one more complex 
+    doubly robust estimator for the survival curve process. The estimators 
+    are doubly robust in the sense that they are consistent if the censoring 
+    model is correctly specified for censoring and either the outcome model 
+    is correctly specified for confounding or the exposure model is correctly 
+    specified for confounding. See <doi:10.48550/arXiv.2310.16207> for 
+    more details and examples. 
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: survival, 
+    numDeriv,
+    boot
+RoxygenNote: 7.2.3
+Depends: 
+    R (>= 2.10)
