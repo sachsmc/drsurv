@@ -73,7 +73,40 @@ A list with the estimates and standard errors, if requested
 }
 \description{
 Doubly robust estimation of the survival curves in two exposure groups
-and their difference using the method of Sjolander and Vansteelandt.
+and their difference using the method of Sjolander and Vansteelandt (2017) .
+}
+\details{
+Following Bai et al. 2013 and Sjölander and Vansteelandt 2017, consider the
+following estimating equation for \eqn{S_x(t) = p\{T(x) > t\}}:
+\deqn{\sum_{i = 1}^n \left[S_x(t) - \frac{I_{X_i = x}
+I_{\tilde{T}_i > t}}{\bar{g}(\boldsymbol{Z}_i, \boldsymbol{\alpha})G_c(t,
+X_i, \boldsymbol{Z}_i)} - \frac{I_{X_i = x} - \bar{g}(\boldsymbol{Z}_i,
+\boldsymbol{\alpha})}{\bar{g}(\boldsymbol{Z}_i, \boldsymbol{\alpha})} H(t,
+\boldsymbol{Z}_i, X = x) - \right. \\ \left. \frac{I_{X_i = x} -
+\bar{g}(\boldsymbol{Z}_i, \boldsymbol{\alpha})}{\bar{g}(\boldsymbol{Z}_i,
+\boldsymbol{\alpha})} H(t, \boldsymbol{Z}_i, X = x) \int_0^t\frac{d\, M_c(u,
+\boldsymbol{Z}_i, X_i, \tilde{T}_i, \Delta_i)}{G_c(u, X_i,
+\boldsymbol{Z}_i)H(u, \boldsymbol{Z}_i, X_i)}\right] = 0, }
+where \eqn{\bar{g}(\boldsymbol{Z}_i, \boldsymbol{\alpha}) = g(\boldsymbol{Z}_i,
+\boldsymbol{\alpha})^x (1 - g(\boldsymbol{Z}_i,
+\boldsymbol{\alpha}))^{(1-x)}}, \eqn{H(t, \boldsymbol{Z}, X)} is a model for
+\eqn{p\{T > t | \boldsymbol{Z}, X\}}, and \eqn{M_c(t, \boldsymbol{Z}, X, \tilde{T},
+\Delta)} is the martingale increment for the censoring distribution. The
+above is an unbiased estimating equation for \eqn{S_x(t)} if either \eqn{H(t,
+\boldsymbol{Z}, X)} is correctly specified for both censoring and
+confounding, i.e., is a correctly specified model for \eqn{p\{T(x) > t |
+\boldsymbol{Z}, X\}} or both \eqn{G_c(u, X, \boldsymbol{Z})} and
+\eqn{g(\boldsymbol{Z}, \boldsymbol{\alpha})} are correctly specified for
+censoring and confounding, respectively. To obtain estimates of the
+difference in survival probabilities, one must specify models for the unknown
+functions \eqn{g}, \eqn{G_c}, and \eqn{H}, get estimates of those, plug them
+into the estimating equations, and solve for \eqn{S_x(t)} under \eqn{x \in
+\{0, 1\}}. In this package, one can use semiparametric Cox models or
+parametric survival models for the outcome and the censoring distributions,
+and logistic regression for the propensity score model. Bai et al. 2013
+provide an expression for a variance estimator that accounts for the
+uncertainty due to the estimation of the propensity score \eqn{g} and the
+censoring distribution \eqn{G_c}.
 }
 \examples{
 df <- rotterdam
@@ -96,4 +129,14 @@ drFit <-
   )
 drFit
 
+}
+\references{
+Xiaofei Bai, Anastasios A Tsiatis, and Sean~M O'Brien.
+  "Doubly-robust estimators of treatment-specific survival distributions in
+  observational studies with stratified sampling." Biometrics,
+  69(4):830--839, 2013.
+
+  Sjölander, Arvid, and Stijn Vansteelandt. "Doubly
+  robust estimation of attributable fractions in survival analysis."
+  Statistical methods in medical research 26(2):948-969, 2017.
 }
