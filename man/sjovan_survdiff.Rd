@@ -69,7 +69,7 @@ sjovan_survdiff(
 \item{ncpus}{Number of cpus to use for parallel processing, see \link[boot]{boot}}
 }
 \value{
-A list with the estimates and standard errors, if requested
+A list with the estimates survival probabilities in each group, their difference, and standard errors, if requested
 }
 \description{
 Doubly robust estimation of the survival curves in two exposure groups

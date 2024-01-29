@@ -27,9 +27,13 @@ Description: An implementation of several doubly robust estimators for the
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: survival, 
-    numDeriv,
-    boot
+Imports: numDeriv,
+    boot, 
+    mets,
+    timereg,
+    eventglm,
+    stats
 RoxygenNote: 7.2.3
 Depends: 
-    R (>= 2.10)
+    R (>= 2.10),
+    survival

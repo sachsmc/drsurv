@@ -64,7 +64,7 @@
 #' @param parallel Parallel processing for bootstrap, see \link[boot]{boot}
 #' @param cl Optional cluster if parallel processing, see \link[boot]{boot}
 #' @param ncpus Number of cpus to use for parallel processing, see \link[boot]{boot}
-#' @returns A list with the estimates and standard errors, if requested
+#' @returns A list with the estimates survival probabilities in each group, their difference, and standard errors, if requested
 #'
 #' @examples
 #' df <- rotterdam
@@ -120,12 +120,12 @@ sjovan_survdiff <- function(oformula = NULL, ofunc = "coxph", oarg = list(),
 
     est <- bb$t0
     se <-  apply(X = bb$t, MARGIN = 2, FUN = sd)
-    out <- list(est.St = est[seq(1,3*length(times)-2,3)],
-                se.St = se[seq(1,3*length(times)-2,3)],
-                est.St0 = est[seq(2,3*length(times)-1,3)],
-                se.St0 = se[seq(2,3*length(times)-1,3)],
-                est.AF = est[seq(3,3*length(times),3)],
-                se.AF = se[seq(3,3*length(times),3)])
+    out <- list(est.S1 = est[seq(1,3*length(times)-2,3)],
+                se.S1 = se[seq(1,3*length(times)-2,3)],
+                est.S0 = est[seq(2,3*length(times)-1,3)],
+                se.S0 = se[seq(2,3*length(times)-1,3)],
+                est.diff = est[seq(3,3*length(times),3)],
+                se.diff = se[seq(3,3*length(times),3)])
 
   }
 
@@ -144,12 +144,12 @@ sjovan_survdiff <- function(oformula = NULL, ofunc = "coxph", oarg = list(),
                           se.fit = TRUE, data = data, weights = weights)
     est <- fit$est
     se <- fit$se
-    out <- list(est.St = est[seq(1,3*length(times)-2,3)],
-                se.St = se[seq(1,3*length(times)-2,3)],
-                est.St0 = est[seq(2,3*length(times)-1,3)],
-                se.St0 = se[seq(2,3*length(times)-1,3)],
-                est.AF = est[seq(3,3*length(times),3)],
-                se.AF = se[seq(3,3*length(times),3)])
+    out <- list(est.S1 = est[seq(1,3*length(times)-2,3)],
+                se.S1 = se[seq(1,3*length(times)-2,3)],
+                est.S0 = est[seq(2,3*length(times)-1,3)],
+                se.S0 = se[seq(2,3*length(times)-1,3)],
+                est.diff = est[seq(3,3*length(times),3)],
+                se.diff = se[seq(3,3*length(times),3)])
 
   }
 
@@ -163,9 +163,9 @@ sjovan_survdiff <- function(oformula = NULL, ofunc = "coxph", oarg = list(),
                           se.fit = FALSE, data = data, weights = weights)
     est <- fit$est
     se <- fit$se
-    out <- list(est.St = est[seq(1,3*length(times)-2,3)],
-                est.St0 = est[seq(2,3*length(times)-1,3)],
-                est.AF = est[seq(3,3*length(times),3)])
+    out <- list(est.S1 = est[seq(1,3*length(times)-2,3)],
+                est.S0 = est[seq(2,3*length(times)-1,3)],
+                est.diff = est[seq(3,3*length(times),3)])
 
   }
 

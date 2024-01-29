@@ -4,6 +4,7 @@
 \name{reexports}
 \alias{reexports}
 \alias{Surv}
+\alias{Event}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -12,5 +13,7 @@ below to see their documentation.
 
 \describe{
   \item{survival}{\code{\link[survival]{Surv}}}
+
+  \item{timereg}{\code{\link[timereg]{Event}}}
 }}
 
