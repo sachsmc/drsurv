@@ -6,10 +6,10 @@
 \usage{
 sjovan_survdiff(
   oformula = NULL,
-  ofunc = "coxph",
+  ofunc = "survreg",
   oarg = list(),
   cformula = NULL,
-  cfunc = "coxph",
+  cfunc = "survreg",
   carg = list(),
   eformula = NULL,
   earg = list(),

@@ -90,8 +90,8 @@
 #' @export
 
 
-sjovan_survdiff <- function(oformula = NULL, ofunc = "coxph", oarg = list(),
-                       cformula = NULL, cfunc = "coxph", carg = list(),
+sjovan_survdiff <- function(oformula = NULL, ofunc = "survreg", oarg = list(),
+                       cformula = NULL, cfunc = "survreg", carg = list(),
                        eformula = NULL, earg = list(),
                        method = "DR", times = NULL,
                        rel.tol = .Machine$double.eps^0.1, jacobian.method = "simple",

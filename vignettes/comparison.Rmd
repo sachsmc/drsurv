@@ -1,0 +1,78 @@
+---
+title: "Comparison of Methods in the Rotterdam Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Comparison of Methods in the Rotterdam Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(drsurv)
+```
+
+
+```{r}
+df <- rotterdam
+df$time <- pmin(df$rtime, df$dtime) / 365.25
+df$status <- ifelse(df$recur == 1 | df$death == 1, 1, 0)
+df$censor <- 1 - df$status
+drFit.sjovan <-
+ sjovan_survdiff(
+   oformula = Surv(time, status) ~ chemo + year + age + meno +
+     size + factor(grade) + nodes + pgr + er + hormon,
+   ofunc = "survreg",
+   cformula = Surv(time, censor) ~ chemo + year + age,
+   cfunc = "survreg",
+   eformula = chemo ~ year + age + meno + size +
+     factor(grade) + nodes + pgr + er + hormon,
+   method = "DR",
+   times = c(2.5, 5, 7.5),
+   se.type = "sandwich",
+   data = df
+ )
+drFit.sjovan
+```
+
+
+
+
+```{r}
+df$chemo.fac <- factor(df$chemo)
+drFit.blanche <-
+ blanche_survdiff(
+   oformula = Event(time, status) ~ chemo.fac + year + age + meno +
+     size + factor(grade) + nodes + pgr + er + hormon,
+   cformula = ~ chemo.fac + meno + size,
+   eformula = chemo.fac ~ year + age + meno + size +
+     factor(grade) + nodes + pgr + er + hormon,
+   times = c(2.5, 5, 7.5),
+   data = df
+ )
+drFit.blanche
+```
+
+
+
+```{r}
+drFit.pseudo <-
+ pseudo_survdiff(
+   oformula = Surv(time, status) ~ chemo + year + age + meno +
+     size + factor(grade) + nodes + pgr + er + hormon,
+   cformula = ~ chemo + meno + size,
+   eformula = chemo ~ year + age + meno + size +
+     factor(grade) + nodes + pgr + er + hormon,
+   times = c(2.5, 5, 7.5),
+   data = df, 
+   R = 50
+ )
+drFit.pseudo
+```
+
